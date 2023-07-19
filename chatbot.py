@@ -1,30 +1,28 @@
 import streamlit as st
 import openai
 import os
-
 from dotenv import load_dotenv
 
 load_dotenv()
-
 openai.api_key = os.environ["OPENAI_API_KEY"]
-
 
 # Sidebar
 st.sidebar.title("Configuration")
 
-def model_callback():
-    st.session_state["model"] = st.session_state["model_selection"]
 
-# initialize model
+def model_callback():
+    st.session_state["model"] = st.session_state["model_selected"]
+
+
 if "model" not in st.session_state:
-    st.session_state.model = "gpt-3.5-turbo"
+    st.session_state["model"] = "gpt-3.5-turbo"
 
 st.session_state.model = st.sidebar.radio(
-    "Model Selection",
+    "Select OpenAI Model",
     ("gpt-3.5-turbo", "gpt-3.5-turbo-16k"),
-    index=0 if st.session_state["model"] else 1,
+    index=0 if st.session_state["model"] == "gpt-3.5-turbo" else 1,
     on_change=model_callback,
-    key="model_selection",
+    key="model_selected",
 )
 
 st.sidebar.markdown(
@@ -95,6 +93,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = reset_messages()
 
 
+# Display messages
 for message in st.session_state["messages"]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -106,7 +105,7 @@ if user_prompt := st.chat_input("Your prompt"):
     with st.chat_message("user"):
         st.markdown(user_prompt)
 
-    # generate responses
+    # Generate responses
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
@@ -121,6 +120,7 @@ if user_prompt := st.chat_input("Your prompt"):
         ):
             full_response += response.choices[0].delta.get("content", "")
             message_placeholder.markdown(full_response + "▌")
+        message_placeholder.markdown(full_response)
 
         message_placeholder.markdown(full_response)
 

@@ -1,3 +1,7 @@
 openai
 streamlit
+<<<<<<< HEAD
 python-dotenv
+=======
+python-dotenv
+>>>>>>> 7b99a4c2544fe807535f285851002891d6b7deb4
