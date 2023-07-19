@@ -10,12 +10,12 @@ This repository contains the code for a simple web application built with [Strea
 ### Steps to run the application
 **1. Clone the repository to your local machine:**
 ```shell
-git clone https://github.com/krisograbek/streamlit_chatbot_base.git
+git clone https://github.com/krisograbek/multibot_streamlit.git
 ```
 
 **2. Navigate to the project directory:**
 ```shell
-cd streamlit_chatbot_base
+cd multibot_streamlit
 ```
 
 **3. Create a virtual environment and activate it:**
